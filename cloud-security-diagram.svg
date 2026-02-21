@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <!-- Styles -->
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #333; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 16px; fill: #666; }
+      .label { font-family: Arial, sans-serif; font-size: 14px; fill: #333; }
+      .small-label { font-family: Arial, sans-serif; font-size: 12px; fill: #555; }
+      .rule-text { font-family: monospace; font-size: 11px; fill: #000; }
+      .allow { fill: #4CAF50; }
+      .deny { fill: #f44336; }
+      .cloud-bg { fill: #E3F2FD; stroke: #2196F3; stroke-width: 3; }
+      .vnet-bg { fill: #FFF9C4; stroke: #FBC02D; stroke-width: 2; stroke-dasharray: 5,5; }
+      .subnet { fill: #E8F5E9; stroke: #4CAF50; stroke-width: 2; }
+      .subnet-data { fill: #FCE4EC; stroke: #E91E63; stroke-width: 2; }
+      .vm { fill: #BBDEFB; stroke: #1976D2; stroke-width: 2; }
+      .nsg { fill: #FFE0B2; stroke: #F57C00; stroke-width: 2; }
+      .internet { fill: #FFEBEE; stroke: #C62828; stroke-width: 2; }
+      .arrow { stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-allow { stroke: #4CAF50; stroke-width: 2; fill: none; marker-end: url(#arrowhead-green); }
+      .arrow-deny { stroke: #f44336; stroke-width: 2; fill: none; stroke-dasharray: 5,5; marker-end: url(#arrowhead-red); }
+      .arrow-internal { stroke: #2196F3; stroke-width: 2; fill: none; marker-end: url(#arrowhead-blue); }
+    </style>
+    
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333" />
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#4CAF50" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f44336" />
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2196F3" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="600" y="30" text-anchor="middle" class="title">Cloud Security Lab - Network Architecture</text>
+  <text x="600" y="55" text-anchor="middle" class="subtitle">Defense in Depth with Network Security Groups</text>
+  
+  <!-- Internet Cloud -->
+  <ellipse cx="600" cy="120" rx="80" ry="40" class="internet"/>
+  <text x="600" y="115" text-anchor="middle" class="label">Internet</text>
+  <text x="600" y="130" text-anchor="middle" class="small-label">(Untrusted)</text>
+  
+  <!-- Azure Cloud Border -->
+  <rect x="100" y="200" width="1000" height="550" rx="15" class="cloud-bg"/>
+  <text x="150" y="230" class="label" font-weight="bold">Azure Cloud</text>
+  
+  <!-- Virtual Network -->
+  <rect x="150" y="250" width="900" height="480" rx="10" class="vnet-bg"/>
+  <text x="200" y="280" class="label" font-weight="bold">CloudSecLab-VNet (10.0.0.0/16)</text>
+  
+  <!-- Web Tier Subnet -->
+  <rect x="200" y="310" width="380" height="380" rx="8" class="subnet"/>
+  <text x="390" y="340" text-anchor="middle" class="label" font-weight="bold">WebTier-Subnet</text>
+  <text x="390" y="360" text-anchor="middle" class="small-label">10.0.1.0/24</text>
+  
+  <!-- Data Tier Subnet -->
+  <rect x="620" y="310" width="380" height="380" rx="8" class="subnet-data"/>
+  <text x="810" y="340" text-anchor="middle" class="label" font-weight="bold">DataTier-Subnet</text>
+  <text x="810" y="360" text-anchor="middle" class="small-label">10.0.2.0/24</text>
+  
+  <!-- Web Server VM -->
+  <rect x="260" y="400" width="260" height="120" rx="5" class="vm"/>
+  <text x="390" y="425" text-anchor="middle" class="label" font-weight="bold">WebServer-VM</text>
+  <text x="390" y="445" text-anchor="middle" class="small-label">Ubuntu 22.04</text>
+  <text x="390" y="462" text-anchor="middle" class="small-label">Apache Web Server</text>
+  <text x="390" y="479" text-anchor="middle" class="small-label">Private IP: 10.0.1.4</text>
+  <text x="390" y="496" text-anchor="middle" class="small-label" font-weight="bold">Public IP: X.X.X.X</text>
+  
+  <!-- Database Server VM -->
+  <rect x="680" y="400" width="260" height="120" rx="5" class="vm"/>
+  <text x="810" y="425" text-anchor="middle" class="label" font-weight="bold">DBServer-VM</text>
+  <text x="810" y="445" text-anchor="middle" class="small-label">Ubuntu 22.04</text>
+  <text x="810" y="462" text-anchor="middle" class="small-label">MySQL Database</text>
+  <text x="810" y="479" text-anchor="middle" class="small-label">Private IP: 10.0.2.4</text>
+  <text x="810" y="496" text-anchor="middle" class="small-label" font-weight="bold">No Public IP</text>
+  
+  <!-- WebTier NSG -->
+  <rect x="220" y="550" width="340" height="120" rx="5" class="nsg"/>
+  <text x="390" y="572" text-anchor="middle" class="label" font-weight="bold">WebTier-NSG</text>
+  <text x="240" y="595" class="rule-text">✓ Allow HTTP (80) from Any</text>
+  <text x="240" y="612" class="rule-text">✓ Allow HTTPS (443) from Any</text>
+  <text x="240" y="629" class="rule-text">✓ Allow SSH (22) from My IP</text>
+  <text x="240" y="646" class="rule-text">✗ Deny All Other Inbound</text>
+  
+  <!-- DataTier NSG -->
+  <rect x="640" y="550" width="340" height="120" rx="5" class="nsg"/>
+  <text x="810" y="572" text-anchor="middle" class="label" font-weight="bold">DataTier-NSG</text>
+  <text x="660" y="595" class="rule-text">✓ Allow MySQL (3306) from 10.0.1.0/24</text>
+  <text x="660" y="612" class="rule-text">✓ Allow SSH (22) from 10.0.1.0/24</text>
+  <text x="660" y="629" class="rule-text">✗ Deny All Other Inbound</text>
+  
+  <!-- Arrows and Traffic Flows -->
+  
+  <!-- Internet to Web Server - HTTP/HTTPS Allowed -->
+  <path d="M 600 160 L 390 400" class="arrow-allow"/>
+  <text x="480" y="270" class="small-label allow">✓ HTTP/HTTPS</text>
+  
+  <!-- Internet to Web Server - SSH from My IP -->
+  <path d="M 620 160 L 420 400" class="arrow-allow" stroke-dasharray="3,3"/>
+  <text x="530" y="300" class="small-label allow">✓ SSH (My IP)</text>
+  
+  <!-- Internet to DB Server - Blocked (No Public IP) -->
+  <path d="M 600 160 L 810 400" class="arrow-deny"/>
+  <text x="720" y="270" class="small-label deny">✗ No Access</text>
+  <text x="705" y="285" class="small-label deny">(No Public IP)</text>
+  
+  <!-- Web Server to DB Server - MySQL Allowed -->
+  <path d="M 520 460 L 680 460" class="arrow-internal"/>
+  <text x="590" y="450" class="small-label" fill="#2196F3">MySQL (3306)</text>
+  
+  <!-- Legend -->
+  <g transform="translate(100, 60)">
+    <text x="0" y="0" class="label" font-weight="bold">Legend:</text>
+    <line x1="0" y1="10" x2="40" y2="10" class="arrow-allow"/>
+    <text x="50" y="15" class="small-label">Allowed Traffic</text>
+    
+    <line x1="0" y1="30" x2="40" y2="30" class="arrow-deny"/>
+    <text x="50" y="35" class="small-label">Denied Traffic</text>
+    
+    <line x1="0" y1="50" x2="40" y2="50" class="arrow-internal"/>
+    <text x="50" y="55" class="small-label">Internal Traffic</text>
+  </g>
+  
+  <!-- Security Principles Box -->
+  <g transform="translate(880, 60)">
+    <rect x="0" y="0" width="220" height="110" rx="5" fill="#F5F5F5" stroke="#666" stroke-width="1"/>
+    <text x="110" y="20" text-anchor="middle" class="label" font-weight="bold">Security Principles</text>
+    <text x="10" y="40" class="small-label">• Least Privilege</text>
+    <text x="10" y="58" class="small-label">• Defense in Depth</text>
+    <text x="10" y="76" class="small-label">• Network Segmentation</text>
+    <text x="10" y="94" class="small-label">• No Direct DB Access</text>
+  </g>
+  
+</svg>
